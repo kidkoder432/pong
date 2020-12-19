@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <title>Ping Pong</title>
+    <link type="text/css" rel="stylesheet" href="style.css"/>
+    <script defer src="https://unpkg.com/p5"></script>
+    <script defer src='https://unpkg.com/p5.collide2d'></script>
+    <script src="sketch.js"></script>
+  </head>
+  <body>
+    <main>
+      <h1>Ping Pong - By Prajwal Agrawal</h1>
+      <input id='shi' type='button' onclick='showInstructions()' value='Show/hide instructions'>
+			<div id='ins'><p>Instructions:
+				<br>Use the W and S keys to move your paddle. 
+				<br>You can also move your mouse. 
+				<br>If you are on a touch device, drag to move the <br>paddle. 
+				<br>Press ESC or click the button to pause/resume the game.
+				<br>For 2 players:
+				<br>W/S to move Player 1
+				<br>Up/Down to move Player 2
+				<br>tap and drag left side of screen to move Player 1
+				<br>tap and drag right side of screen to move Player 2</p></div>
+      <input type="button" id='sp' onclick="pause()" value="Start/Pause">
+			<h2 id='scr'></h2>
+			<script>
+	function showInstructions() {
+  var x = document.getElementById("ins");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+		</main>
+  </body>
+</html>
