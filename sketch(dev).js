@@ -9,7 +9,7 @@ var sp = Math.random() * 10 + 10
 var y = 250
 var xa = 0; var ya = 0
 var z = 0
-var pu, pd, cu, cd, cy = 70
+var pu, pd, cu, cd, cy = 0
 var r = (Math.random() + 0.6) * 10
 var a = (Math.random()) * 22 + 22 + (90 * Math.floor(Math.random() * 4))
 var intel = Math.floor(Math.random() * 100)
@@ -45,8 +45,9 @@ function collision(pdy){
   // y = py + 70 -> ya = 0
   //y = py -> ya = -1
   //y = py + 140 -> ya = 1
-  console.log(y, pdy, y - pdy)   
-  a = scale(y - pdy, 0, 140, 315, 405) % 360
+  console.log(x, y, xa, ya, a, py, cy, r, pdy, y - pdy)   
+  a = scale(Math.abs(y - pdy), 0, 140, 315, 405) % 360
+  console.log(scale(Math.abs(y - pdy), 0, 140, 315, 405) % 360)
   console.log(a)
   xa = ptc(r,a)[0]
   ya = ptc(r,a)[1]
@@ -121,6 +122,7 @@ function keyPressed(){
 	}
 }
 function draw(){
+  a = a % 360
   var c = color(255)
   fill(c)
   noStroke()
