@@ -5,20 +5,19 @@ var d = 0
 var ps = 0
 var cs = 0
 var x = 250
-var sp = Math.random() * 10 + 10
+var sp = Math.random() * 10 + 7
 var y = 250
 var xa = 0; var ya = 0
 var z = 0
-var pu, pd, cu, cd, cy = 0
-var r = (Math.random() + 0.2) * 10
+var pu, pd, cu, cd, cy = 70
+var r = (Math.random() + 0.6) * 10
 var a = (Math.random()) * 22 + 22 + (90 * Math.floor(Math.random() * 4))
 var intel = Math.floor(Math.random() * 100)
 var t = 400
+xa = ptc(r,a)[0]
+ya = ptc(r,a)[1]
 // np = confirm('Please select a mode (1 player or 2 player). Press OK for 1 player, and press Cancel for 2 players.')
-
-function scl(num, in_min, in_max, out_min, out_max){
-  return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}
+console.log(xa, ya, r, a)
 
 
 function ptc(dist, theta){
@@ -26,9 +25,6 @@ function ptc(dist, theta){
 	var y = Math.sin(theta * (Math.PI/180)) * dist
 	return [x, y]
 }
-xa = ptc(r,a)[0]
-ya = ptc(r,a)[1]
-
 function pause(){
 	if (z % 2 == 0){
 		noLoop()
@@ -39,17 +35,6 @@ function pause(){
 	}
 	z += 1
 
-}
-
-function collision(pdy){
-  // y = py + 70 -> ya = 0
-  //y = py -> ya = -1
-  //y = py + 140 -> ya = 1
-  console.log(x, y, xa, ya, a, py, cy, r, pdy, y - pdy)   
-  a = scl(Math.abs(y - pdy), 0, 140, 135, 225)
-  console.log(a)
-  xa = ptc(r,a)[0]
-  ya = ptc(r,a)[1]
 }
 function sleep(milliseconds) {
   const date = Date.now();
@@ -66,32 +51,28 @@ function ai(){
 }
 
 function physics(){
-
   if (x > t /*&& np && intel > 15*/){
     ai()
     
   }
   if (collideRectCircle(5, py, 10, 140, x, y, 20)){ //Ball has collided with player's paddle
     x = 26
-    collision(py)
-    sp = Math.random() * 10 + 7
-    a += 180
-    //xa = Math.abs(xa)
-		// console.log(sp)
+		sp = Math.random() * 10 + 7
+    xa = Math.abs(xa)
+		console.log(sp)
+    intel = Math.floor(Math.random() * 100)
   }
-  if (collideRectCircle(485, cy, 10, 140, x, y, 20)){ //Ball has collided with computer's paddle
+  if (collideRectCircle(485, cy - 70, 10, 140, x, y, 20)){ //Ball has collided with computer's paddle
     x = 474
-    //xa = Math.abs(xa) * -1
-    collision(cy)
+    xa = Math.abs(xa) * -1
 
   }
 
-  else if (x > 490){a *= -1; ps += 1; d = 2000; x = 250; y = 250; cy = 0}
-  else if (x < 10){a *= -1; ps -= 1; d = 2000; x = 250; y = 250; cy = 0}
-  else if (y > 490){a *= -1; y = 490}
-  else if (y < 10){a *= -1; y = 10}
-  xa = ptc(r,a)[0]
-  ya = ptc(r,a)[1]
+  else if (x > 490){xa *= -1; ps += 1; d = 2000; x = 250; y = 250; cy = 0}
+  else if (x < 10){xa *= -1; ps -= 1; d = 2000; x = 250; y = 250; cy = 0}
+  else if (y > 490){ya *= -1; y = 490}
+  else if (y < 10){ya *= -1; y = 10}
+
 
 }
 function setup(){
@@ -124,8 +105,6 @@ function keyPressed(){
 	}
 }
 function draw(){
-
-  a = a % 360
   var c = color(255)
   fill(c)
   noStroke()
@@ -137,6 +116,8 @@ function draw(){
     pu = true
     pd = false
   }
+
+
 
 	else{pu = false; pd = false}
 	// if (! np){
@@ -168,7 +149,7 @@ function draw(){
   c = color(255)
   fill(c)
   noStroke()
-  rect(485, cy, 10, 140) //computer's paddle
+  rect(485, cy - 70, 10, 140) //computer's paddle
   if (d > 0){
     sleep(d)
     intel = Math.floor(Math.random() * 100)
