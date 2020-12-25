@@ -45,11 +45,9 @@ function collision(pdy){
   // y = py + 70 -> ya = 0
   //y = py -> ya = -1
   //y = py + 140 -> ya = 1
-  console.log(x, y, xa, ya, a, py, cy, r, pdy, y - pdy)   
+  //console.log(x, y, xa, ya, a, py, cy, r, pdy, y - pdy)   
   a = scl(Math.abs(y - pdy), 0, 140, 135, 225)
-  console.log(a)
-  xa = ptc(r,a)[0]
-  ya = ptc(r,a)[1]
+  //console.log(a)
 }
 function sleep(milliseconds) {
   const date = Date.now();
@@ -66,7 +64,7 @@ function ai(){
 }
 
 function physics(){
-
+  if (a < 0){ a += 360}
   if (x > t /*&& np && intel > 15*/){
     ai()
     
@@ -83,6 +81,8 @@ function physics(){
     x = 474
     //xa = Math.abs(xa) * -1
     collision(cy)
+    a *= -1
+    //console.log(y - cy, y, cy, a)
 
   }
 
@@ -92,7 +92,7 @@ function physics(){
   else if (y < 10){a *= -1; y = 10}
   xa = ptc(r,a)[0]
   ya = ptc(r,a)[1]
-
+  console.log(a)
 }
 function setup(){
   createCanvas(500, 500)
@@ -125,7 +125,7 @@ function keyPressed(){
 }
 function draw(){
 
-  a = a % 360
+  //a = a % 360
   var c = color(255)
   fill(c)
   noStroke()
