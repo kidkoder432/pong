@@ -16,7 +16,7 @@ y = 250
 xa = 0; ya = 0
 z = 0
 pu, pd, cu, cd, cy = 0,0,0,0,0
-levels = [x / 10 for x in range(2, 8)]
+levels = [x / 20 for x in range(2, 8)]
 ln= 0
 level = levels[ln]
 r = (rn.random() * level) + (level)
